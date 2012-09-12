@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 OTA Updater
+ * Copyright (C) 2012 OTA Update Center
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * You may only use this file in compliance with the license and provided you are not associated with or are in co-operation anyone by the name 'X Vanderpoel'.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.updater.ota;
+package com.otaupdater;
 
 import java.io.File;
 
@@ -26,11 +26,14 @@ public class Config {
     public static final String GCM_SENDER_ID = "1068482628480";
     public static final String GCM_REGISTER_URL = "https://www.otaupdatecenter.pro/pages/regdevice2.php";
     public static final String PULL_URL = "https://www.otaupdatecenter.pro/pages/romupdate.php";
+    public static final String DONATE_URL = "https://www.otaupdatecenter.pro/?page=paypal_donate";
     public static final String OTA_ID_PROP = "otaupdater.otaid";
     public static final String OTA_VER_PROP = "otaupdater.otaver";
     public static final String OTA_DATE_PROP = "otaupdater.otatime";
     public static final String OTA_SD_PATH_OS_PROP = "otaupdater.sdcard.os";
     public static final String OTA_SD_PATH_RECOVERY_PROP = "otaupdater.sdcard.recovery";
+    public static final String OTA_REBOOT_CMD_PROP = "otaupdater.rebootcmd";
+    public static final String OTA_NOFLASH_PROP = "otaupdater.noflash";
 
     public static final int WAKE_TIMEOUT = 30000;
 

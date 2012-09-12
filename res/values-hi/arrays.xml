@@ -17,20 +17,20 @@
 
 <resources>
     <string-array name="file_actions">
-        <item>نصب</item>
-        <item>تغییر نام</item>
-        <item>حذف</item>
+        <item>लागू करो</item>
+        <item>नाम बदलें</item>
+        <item>हटा दो</item>
     </string-array>
     <string-array name="install_options">
-        <item>پاک کردن داده ها</item>
-        <item>پاک کردن حافظه پنهان</item>
+        <item>डेटा मिटाओ</item>
+        <item>मिटाओ</item>
     </string-array>
     <string-array name="file_ages">
-        <item>1 هفته</item>
-        <item>2 هفته</item>
-        <item>1 ماه</item>
-        <item>3 ماه</item>
-        <item>6 ماه</item>
-        <item>1 سال</item>
+        <item>एक</item>
+        <item>दो सप्ताह</item>
+        <item>एक महीना</item>
+        <item>तीन महीने</item>
+        <item>छह महीने</item>
+        <item>एक साल</item>
     </string-array>
 </resources>

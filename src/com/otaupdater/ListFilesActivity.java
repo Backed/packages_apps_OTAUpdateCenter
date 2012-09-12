@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 OTA Updater
+ * Copyright (C) 2012 OTA Update Center
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * You may only use this file in compliance with the license and provided you are not associated with or are in co-operation anyone by the name 'X Vanderpoel'.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.updater.ota;
+package com.otaupdater;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -213,7 +213,7 @@ public class ListFilesActivity extends ListActivity implements AdapterView.OnIte
         AlertDialog.Builder alert = new AlertDialog.Builder(ctx);
         alert.setTitle(R.string.alert_install_title);
 //        alert.setMessage(R.string.alert_install_message);
-        if (android.os.Build.DEVICE.toLowerCase().equals("gt-n7000")) { //can't flash programmatically, must flash manually
+        if (Utils.getNoflash()) { //can't flash programmatically, must flash manually
             alert.setMessage(ctx.getString(R.string.alert_noinstall_message, file.getAbsolutePath()));
             alert.setNeutralButton(R.string.alert_ok, new DialogInterface.OnClickListener() {
                 @Override
@@ -259,10 +259,16 @@ public class ListFilesActivity extends ListActivity implements AdapterView.OnIte
                                 
                                 os.writeBytes("echo '--update_package=/" + Utils.getRcvrySdPath() + "/OTA-Updater/download/" + name + "' >> /cache/recovery/command\n");
                                 
-                                if (!android.os.Build.DEVICE.toLowerCase().equals("gt-i9100")) {
-                                    os.writeBytes("reboot recovery\n");
+                                String rebootCmd = Utils.getRebootCmd();
+                                if (!rebootCmd.equals("$$NULL$$")) {
+                                    if (rebootCmd.endsWith(".sh")) {
+                                        os.writeBytes("sh " + rebootCmd + "\n");
+                                    } else {
+                                        os.writeBytes(rebootCmd + "\n");
+                                    }
                                 }
                                 
+                                os.writeBytes("sync\n");
                                 os.writeBytes("exit\n");
                                 os.flush();
                                 p.waitFor();

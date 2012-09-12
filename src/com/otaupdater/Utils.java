@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 OTA Updater
+ * Copyright (C) 2012 OTA Update Center
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * You may only use this file in compliance with the license and provided you are not associated with or are in co-operation anyone by the name 'X Vanderpoel'.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.updater.ota;
+package com.otaupdater;
 
 import java.io.InputStream;
 import java.text.ParseException;
@@ -41,6 +41,8 @@ public class Utils {
     private static String cachedOtaVer = null;
     private static String cachedOSSdPath = null;
     private static String cachedRcvrySdPath = null;
+    private static String cachedRebootCmd = null;
+    private static String cachedNoflash = null;
     
     public static boolean marketAvailable(Context ctx) {
         PackageManager pm = ctx.getPackageManager();
@@ -84,6 +86,26 @@ public class Utils {
     	return cachedRcvrySdPath;
     }
     
+    public static String getRebootCmd() {
+        if (cachedRebootCmd == null) {
+            cachedRebootCmd = getprop(Config.OTA_REBOOT_CMD_PROP);
+            if (cachedRebootCmd == null) {
+                cachedRebootCmd = "reboot recovery";
+            }
+        }
+        return cachedRebootCmd;
+    }
+    
+    public static boolean getNoflash() {
+        if (cachedNoflash == null) {
+            cachedNoflash = getprop(Config.OTA_NOFLASH_PROP);
+            if (cachedNoflash == null) {
+                cachedNoflash = "0";
+            }
+        }
+        return cachedNoflash.equals("1") || cachedNoflash.equalsIgnoreCase("true");
+    }
+    
     public static Date getOtaDate() {
         if (cachedOtaDate == null) {
             String otaDateStr = getprop(Config.OTA_DATE_PROP);
@@ -109,7 +131,9 @@ public class Utils {
         try {
             p = pb.start();
             is = p.getInputStream();
-            String prop = new Scanner(is).next();
+            Scanner scan = new Scanner(is);
+            scan.useDelimiter("\n");
+            String prop = scan.next();
             if (prop.length() == 0) return null;
             return prop;
         } catch (NoSuchElementException e) {

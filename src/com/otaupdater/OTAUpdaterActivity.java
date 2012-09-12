@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 OTA Updater
+ * Copyright (C) 2012 OTA Update Center
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * You may only use this file in compliance with the license and provided you are not associated with or are in co-operation anyone by the name 'X Vanderpoel'.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.updater.ota;
+package com.otaupdater;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -39,6 +39,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -56,7 +57,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gcm.GCMRegistrar;
-import com.updater.ota.FetchRomInfoTask.RomInfoListener;
+import com.otaupdater.FetchRomInfoTask.RomInfoListener;
 
 final class Slugify {
 
@@ -79,7 +80,7 @@ final class Slugify {
 }
 
 public class OTAUpdaterActivity extends PreferenceActivity {
-    protected static final String NOTIF_ACTION = "com.updater.ota.action.NOTIF_ACTION";
+    protected static final String NOTIF_ACTION = "com.otaupdater.action.NOTIF_ACTION";
 
     private boolean dialogFromNotif = false;
     private boolean checkOnResume = false;
@@ -113,7 +114,6 @@ public class OTAUpdaterActivity extends PreferenceActivity {
             alert.setPositiveButton(R.string.alert_ignore, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
 					dialog.dismiss();
 				}
 			});
@@ -213,7 +213,7 @@ public class OTAUpdaterActivity extends PreferenceActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         boolean connected = ni != null && ni.isConnected();
-        if ((!connected || ni.getType() == ConnectivityManager.TYPE_MOBILE) && !cfg.getIgnoredDataWarn() && !dialogFromNotif) {
+        if ((!connected || ni.getType() == ConnectivityManager.TYPE_MOBILE) && !cfg.getIgnoredDataWarn() && !dialogFromNotif && Utils.isROMSupported()) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle(connected ? R.string.alert_nowifi_title : R.string.alert_nodata_title);
             alert.setMessage(connected ? R.string.alert_nowifi_message : R.string.alert_nodata_message);
@@ -308,6 +308,10 @@ public class OTAUpdaterActivity extends PreferenceActivity {
             i = new Intent(this, UpdaterAbout.class);
             startActivity(i);
             break;
+        case R.id.donate:
+            i = new Intent(Intent.ACTION_VIEW, Uri.parse(Config.DONATE_URL));
+            startActivity(i);
+            break;
         case R.id.exit:
             finish();
             break;
@@ -320,6 +324,7 @@ public class OTAUpdaterActivity extends PreferenceActivity {
 
     private void checkForRomUpdates() {
         if (fetching) return;
+        if (!Utils.isROMSupported()) return;
         new FetchRomInfoTask(this, new RomInfoListener() {
             @Override
             public void onStartLoading() {

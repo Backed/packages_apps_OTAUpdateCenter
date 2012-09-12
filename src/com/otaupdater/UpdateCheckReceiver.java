@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 OTA Updater
+ * Copyright (C) 2012 OTA Update Center
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * You may only use this file in compliance with the license and provided you are not associated with or are in co-operation anyone by the name 'X Vanderpoel'.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.updater.ota;
+package com.otaupdater;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -26,7 +26,7 @@ import android.os.PowerManager.WakeLock;
 import android.util.Log;
 
 import com.google.android.gcm.GCMRegistrar;
-import com.updater.ota.FetchRomInfoTask.RomInfoListener;
+import com.otaupdater.FetchRomInfoTask.RomInfoListener;
 
 public class UpdateCheckReceiver extends BroadcastReceiver {
     @Override

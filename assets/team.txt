@@ -32,6 +32,7 @@ ganesh007
 cypis
 blk_jack
 NilsP
+pvyParts
 
 TRANSLATORS
 ===========
@@ -39,7 +40,7 @@ Dexter93 - Greek
 M3nti0n - Dutch
 Dennis Kopin - Russian
 Yoel Dorfman - Hebrew
-kinghunki - Chinese
+kinghunki, Lei Zhang - Chinese
 Steffen Mossefinn - Norwegian
 Bogdan Vasile - Romanian
 Kristoffer Andersen - Danish
@@ -50,3 +51,5 @@ Husam Younis - Arabic
 Milad ED - Persian
 Ventricle - Polish
 Defy+++ - German
+tinky1 - Lithuanian
+KGS - Hindi

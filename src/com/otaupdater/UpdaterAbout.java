@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 OTA Updater
+ * Copyright (C) 2012 OTA Update Center
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * You may only use this file in compliance with the license and provided you are not associated with or are in co-operation anyone by the name 'X Vanderpoel'.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.updater.ota;
+package com.otaupdater;
 
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -26,14 +26,12 @@ import android.preference.PreferenceActivity;
 public class UpdaterAbout extends PreferenceActivity {
     private Preference versionPref;
     private Preference team;
+    private Preference license;
     
-
     @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        
         
         addPreferencesFromResource(R.xml.about);
 
@@ -46,16 +44,20 @@ public class UpdaterAbout extends PreferenceActivity {
         
         team = findPreference("team_pref");
         team.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				// TODO Auto-generated method stub
-				Intent i = new Intent(UpdaterAbout.this, Contributors.class);
-	            startActivity(i);
-				return false;
+	            startActivity(new Intent(UpdaterAbout.this, Contributors.class));
+				return true;
 			}
-        	
         });
-
+        
+        license = findPreference("license_pref");
+        license.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startActivity(new Intent(UpdaterAbout.this, License.class));
+                return true;
+            }
+        });
     }
 }

@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012 OTA Update Center
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.updater.ota"
-    android:versionCode="8"
-    android:versionName="0.99-RC8">
+    package="com.otaupdater"
+    android:versionCode="10"
+    android:versionName="1.0">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="16" />
 
-    <permission android:name="com.updater.ota.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <permission android:name="com.otaupdater.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     
     <uses-permission android:name="android.permission.REBOOT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,7 +31,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="com.updater.ota.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.otaupdater.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
@@ -38,13 +53,13 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.updater.ota" />
+                <category android:name="com.otaupdater" />
             </intent-filter>
         </receiver>
         
-        <service android:name=".GCMIntentService" />
+        <service android:name="com.otaupdater.GCMIntentService" />
         
-        <receiver android:name=".UpdateCheckReceiver">
+        <receiver android:name="com.otaupdater.UpdateCheckReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
             </intent-filter>
@@ -52,23 +67,27 @@
         
         <activity
             android:name=".ListFilesActivity"
-            android:label="@string/app_name">
+            android:label="@string/menu_view">
         </activity>
         
         <activity
             android:name=".UpdaterAbout"
-            android:label="@string/app_name">
+            android:label="@string/about_title">
         </activity>
         
         <activity
             android:name=".Contributors"
-            android:label="@string/app_name">
+            android:label="@string/contributors_title">
         </activity>
         
+        <activity
+            android:name=".License"
+            android:label="@string/license_title">
+        </activity>
         
         <activity
-            android:name=".UpdaterSettings"
-            android:label="@string/app_name">
+            android:name="com.otaupdater.UpdaterSettings"
+            android:label="@string/menu_settings">
         </activity>       
         
     </application>
