@@ -59,8 +59,9 @@ public class ListFilesActivity extends ListActivity implements AdapterView.OnIte
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Config.DL_PATH_FILE.mkdirs(); //just in case
         String extState = Environment.getExternalStorageState();
-        if (!extState.equals(Environment.MEDIA_MOUNTED) && !extState.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
+        if ((!extState.equals(Environment.MEDIA_MOUNTED) && !extState.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) || !Config.DL_PATH_FILE.exists()) {
             Toast.makeText(this, extState.equals(Environment.MEDIA_SHARED) ? R.string.toast_nosd_shared : R.string.toast_nosd_error, Toast.LENGTH_LONG).show();
             finish();
         }
@@ -215,7 +216,7 @@ public class ListFilesActivity extends ListActivity implements AdapterView.OnIte
 //        alert.setMessage(R.string.alert_install_message);
         if (Utils.getNoflash()) { //can't flash programmatically, must flash manually
             alert.setMessage(ctx.getString(R.string.alert_noinstall_message, file.getAbsolutePath()));
-            alert.setNeutralButton(R.string.alert_ok, new DialogInterface.OnClickListener() {
+            alert.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();

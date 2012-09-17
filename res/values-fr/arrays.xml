@@ -18,19 +18,19 @@
 <resources>
     <string-array name="file_actions">
         <item>Installer</item>
-        <item>Nytt Navn</item>
-        <item>Slett</item>
+        <item>Renommer</item>
+        <item>Effacer</item>
     </string-array>
     <string-array name="install_options">
-        <item>Fjern Data</item>
-        <item>Fjern Cache</item>
+        <item>Effacer le Data</item>
+        <item>Effacer le Cache</item>
     </string-array>
     <string-array name="file_ages">
-        <item>1 uke</item>
-        <item>2 uker</item>
-        <item>1 måned</item>
-        <item>3 måneder</item>
-        <item>6 måneder</item>
-        <item>1 år</item>
+        <item>1 semaine</item>
+        <item>2 semaines</item>
+        <item>1 mois</item>
+        <item>3 mois</item>
+        <item>6 mois</item>
+        <item>1 an</item>
     </string-array>
 </resources>
